@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import sys
+from datetime import datetime
 from uuid import uuid4
 
 from aiogram import Bot, Dispatcher, html, types
@@ -61,19 +62,19 @@ async def schedule_message_handler(message: types.Message):
 
 # Функція для надсилання випадкового повідомлення
 async def send_random_message(chat_id: int, bot: Bot):  # Додаємо bot як аргумент
+    current_hour = datetime.now().hour
+    if 8 <= current_hour < 23:  # Перевірка на інтервал з 8:00 до 23:00
+        products = main2()
+        if products:
+            for row in products:
+                card = f"{hlink(row.get('title'), row.get('link'))}\n" \
+                       f"{hbold('Прайс: ')} {row.get('price')}\n" \
+                       f"{hbold('Статус: ')} {row.get('stock_status')}\n" \
 
-    products = main2()
-    if products:
-        for row in products:
-            card = f"{hlink(row.get('title'), row.get('link'))}\n" \
-                   f"{hbold('Прайс: ')} {row.get('price')}\n" \
-                   f"{hbold('Статус: ')} {row.get('stock_status')}\n" \
+                await bot.send_message(chat_id, card)
+        # else:
+        #     await bot.send_message(chat_id, 'Немає змін по аккумуляторах')
 
-            await bot.send_message(chat_id, card)
-    else:
-        await bot.send_message(chat_id, 'Немає змін по аккумуляторах')
-    # random_message = random.choice(messages)
-    # await bot.send_message(chat_id, random_message)
 
 
 @dp.callback_query(lambda c: c.data.startswith("set:"))
