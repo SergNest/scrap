@@ -124,15 +124,6 @@ async def echo_handler(message: Message) -> None:
         # But not all the types is supported to be copied so need to handle it
         await message.answer("Nice try!")
 
-#
-# async def main() -> None:
-#     # Initialize Bot instance with default bot properties which will be passed to all API calls
-#     global bot  # оголошуємо глобальну змінну bot
-#     bot = Bot(token=settings.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-#
-#     # And the run events dispatching
-#     await dp.start_polling(bot, on_startup=on_startup)
-
 
 async def main() -> None:
     global bot
