@@ -24,14 +24,6 @@ scheduler = AsyncIOScheduler()
 
 bot = None  # оголошуємо глобальну змінну bot
 
-# Список повідомлень для випадкового вибору
-messages = [
-    "Привіт!",
-    "Як справи?",
-    "Гарного дня!",
-    "Що нового?",
-    "Як ваше здоров'я?"
-]
 
 MY_COMMAND = "sch"
 
@@ -75,6 +67,7 @@ async def send_random_message(chat_id: int, bot: Bot):  # Додаємо bot я�
         for row in products:
             card = f"{hlink(row.get('title'), row.get('link'))}\n" \
                    f"{hbold('Прайс: ')} {row.get('price')}\n" \
+                   f"{hbold('Статус: ')} {row.get('stock_status')}\n" \
 
             await bot.send_message(chat_id, card)
     else:
