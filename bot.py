@@ -72,8 +72,8 @@ async def send_random_message(chat_id: int, bot: Bot):  # Додаємо bot я�
                        f"{hbold('Статус: ')} {row.get('stock_status')}\n" \
 
                 await bot.send_message(chat_id, card)
-        # else:
-        #     await bot.send_message(chat_id, 'Немає змін по аккумуляторах')
+        else:
+            await bot.send_message(chat_id, 'Немає змін по аккумуляторах')
 
 
 
