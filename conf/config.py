@@ -9,7 +9,7 @@ load_dotenv()
 class Settings(BaseSettings):
 
     token: str = os.getenv('TOKEN', 'TOKEN')
-
+    site: str = os.getenv('SITE', 'SITE')
     # expected_token: str = os.getenv('EXPECTED_TOKEN', 'EXPECTED_TOKEN')
     # ip_central: str = os.getenv('IP_CENTRAL', 'IP_CENTRAL')
     # port_central: str = os.getenv('PORT_CENTRAL', 'PORT_CENTRAL')
