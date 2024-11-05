@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import sys
-import random
 from uuid import uuid4
 
 from aiogram import Bot, Dispatcher, html, types
@@ -59,7 +58,7 @@ async def command_start_handler(message: Message) -> None:
 async def schedule_message_handler(message: types.Message):
     await message.reply("Привіт! Я бот, який надсилає повідомлення.")
     # Передаємо bot як аргумент через kwargs
-    job = scheduler.add_job(send_random_message, 'interval', hours=5,
+    job = scheduler.add_job(send_random_message, 'interval', hours=1,
                             kwargs={'chat_id': message.chat.id, 'bot': bot}, id=str(uuid4()))
     # Додано обробку помилок
     try:
