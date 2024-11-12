@@ -31,16 +31,7 @@ MY_COMMAND = "sch"
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    """
-    This handler receives messages with `/start` command
-    """
-    # Most event objects have aliases for API methods that can be called in events' context
-    # For example if you want to answer to incoming message you can use `message.answer(...)` alias
-    # and the target chat will be passed to :ref:`aiogram.methods.send_message.SendMessage`
-    # method automatically or call API method directly via
-    # Bot instance: `bot.send_message(chat_id=message.chat.id, ...)`
-    # for index in range(1, 5):
-    #     builder.button(text=f"Set {index}", callback_data=f"set:{index}")
+
     builder.button(text=f"В наявності", callback_data=f"set:1")
     builder.button(text=f"Очікуються", callback_data=f"set:2")
 
@@ -72,9 +63,8 @@ async def send_random_message(chat_id: int, bot: Bot):  # Додаємо bot я�
                        f"{hbold('Статус: ')} {row.get('stock_status')}\n" \
 
                 await bot.send_message(chat_id, card)
-        else:
-            await bot.send_message(chat_id, 'Немає змін по аккумуляторах')
-
+        # else:
+        #     await bot.send_message(chat_id, 'Немає змін по аккумуляторах')
 
 
 @dp.callback_query(lambda c: c.data.startswith("set:"))

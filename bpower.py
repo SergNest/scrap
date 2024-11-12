@@ -154,7 +154,6 @@ def main():
     new_data = get_products()
     update_json_file(new_data)
     changed_products = get_changed_products()
-    print(json.dumps(changed_products, ensure_ascii=False, indent=4))
 
 
 if __name__ == '__main__':
