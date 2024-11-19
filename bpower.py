@@ -1,24 +1,42 @@
 import json
 import os
+import time
 from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 from conf.config import settings
 
 headers = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                  "Chrome/129.0.0.0 Safari/537.36",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 "
+                  "Safari/537.36",
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,"
-              "application/signed-exchange;v=b3;q=0.7"
+              "application/signed-exchange;v=b3;q=0.7accept - encoding:gzip, deflate"
 }
 url = settings.site
 
 
 def get_products():
-    response = requests.get(url, headers=headers)
-    soup = BeautifulSoup(response.content, 'html.parser')
+
+    options = Options()
+    options.add_argument('--headless')  # Працює у фоновому режимі (без графічного інтерфейсу)
+    options.add_argument('--disable-gpu')  # Вимкнення GPU для сумісності
+    options.add_argument('--no-sandbox')  # Для роботи в контейнерах (якщо потрібно)
+
+    driver = webdriver.Chrome(options=options)
+    driver.get(url)
+
+    # Чекати, поки завантажиться захищений контент
+    driver.implicitly_wait(20)
+    time.sleep(10)
+    # Отримання HTML-коду сторінки
+    html = driver.page_source
+
+    # response = requests.get(url, headers=headers)
+    soup = BeautifulSoup(html, 'html.parser')
     products = soup.find_all('article', class_='product item')
 
     product_list = []
