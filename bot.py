@@ -42,7 +42,7 @@ async def command_start_handler(message: Message) -> None:
 async def schedule_message_handler(message: types.Message):
     await message.reply("Привіт! Я бот, який надсилає повідомлення.")
     # Передаємо bot як аргумент через kwargs
-    job = scheduler.add_job(send_random_message, 'interval', hours=3,
+    job = scheduler.add_job(send_random_message, 'interval', minutes=2,
                             kwargs={'chat_id': message.chat.id, 'bot': bot}, id=str(uuid4()))
     # Додано обробку помилок
     try:
